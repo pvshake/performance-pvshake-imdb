@@ -1,13 +1,35 @@
 "use client"; // tem eventos de clique e ações diretas do usuário, então é melhor ser client side
+import { formUrlQuery } from "@/sanity/utils";
+import { useSearchParams, useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const Filters = () => {
   const links = ["todos", "filmes", "séries", "animes", "documentários"];
 
   const [activeFilter, setActiveFilter] = useState("");
+  const searchParams = useSearchParams();
+  const router = useRouter();
 
   const handleFilter = (link: string) => {
-    setActiveFilter(link);
+    let newUrl = "";
+
+    if (activeFilter === link) {
+      setActiveFilter("");
+      formUrlQuery({
+        params: searchParams.toString(),
+        key: "category",
+        value: null,
+      });
+    } else {
+      setActiveFilter(link);
+      newUrl = formUrlQuery({
+        params: searchParams.toString(),
+        key: "category",
+        value: link.toLocaleLowerCase(),
+      });
+    }
+
+    router.push(newUrl, { scroll: false });
   };
 
   return (

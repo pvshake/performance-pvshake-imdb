@@ -1,8 +1,23 @@
 import Filters from "@/components/Filters";
+import Header from "@/components/Header";
+import ResourceCard from "@/components/ResourceCard";
 import SearchForm from "@/components/SearchForm";
+import { getResources } from "@/sanity/actions";
 import React from "react";
 
-const Page = () => {
+export const revalidate = 900; // 15 minutes
+
+interface Props {
+  searchParams: { [key: string]: string | undefined };
+}
+
+const Page = async ({ searchParams }: Props) => {
+  const resources = await getResources({
+    query: "",
+    category: searchParams?.category || "",
+    page: "1",
+  });
+
   return (
     <main className="flex-center paddings mx-auto w-full max-w-screen-2xl flex-col">
       <section className="nav-padding w-full">
@@ -16,6 +31,30 @@ const Page = () => {
       </section>
 
       <Filters />
+
+      <section className="flex-center mt-6 w-full flex-col sm:mt-20">
+        <Header />
+        <div className="mt-12 flex w-full flex-wrap justify-center gap-16 sm:justify-start">
+          {resources && resources.length > 0 ? (
+            resources.map((resource: Models.Resource) => (
+              <ResourceCard
+                key={resource._id}
+                id={resource._id}
+                title={resource.title}
+                rating={resource.rating}
+                image={resource.image}
+                category={resource.category}
+                releaseyear={resource.releaseyear}
+                description={resource.description}
+              />
+            ))
+          ) : (
+            <p className="body-regular text-white-400">
+              Nenhum resultado encontrado
+            </p>
+          )}
+        </div>
+      </section>
     </main>
   );
 };
