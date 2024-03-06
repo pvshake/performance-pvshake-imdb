@@ -13,7 +13,7 @@ interface Props {
 
 const Page = async ({ searchParams }: Props) => {
   const resources = await getResources({
-    query: "",
+    query: searchParams?.query || "",
     category: searchParams?.category || "",
     page: "1",
   });
@@ -32,29 +32,34 @@ const Page = async ({ searchParams }: Props) => {
 
       <Filters />
 
-      <section className="flex-center mt-6 w-full flex-col sm:mt-20">
-        <Header />
-        <div className="mt-12 flex w-full flex-wrap justify-center gap-16 sm:justify-start">
-          {resources && resources.length > 0 ? (
-            resources.map((resource: Models.Resource) => (
-              <ResourceCard
-                key={resource._id}
-                id={resource._id}
-                title={resource.title}
-                rating={resource.rating}
-                image={resource.image}
-                category={resource.category}
-                releaseyear={resource.releaseyear}
-                description={resource.description}
-              />
-            ))
-          ) : (
-            <p className="body-regular text-white-400">
-              Nenhum resultado encontrado
-            </p>
-          )}
-        </div>
-      </section>
+      {(searchParams?.query || searchParams?.category) && (
+        <section className="flex-center mt-6 w-full flex-col sm:mt-20">
+          <Header
+            query={searchParams?.query || ""}
+            category={searchParams?.category || ""}
+          />
+          <div className="mt-12 flex w-full flex-wrap justify-center gap-16 sm:justify-start">
+            {resources && resources.length > 0 ? (
+              resources.map((resource: Models.Resource) => (
+                <ResourceCard
+                  key={resource._id}
+                  id={resource._id}
+                  title={resource.title}
+                  rating={resource.rating}
+                  image={resource.image}
+                  category={resource.category}
+                  releaseyear={resource.releaseyear}
+                  description={resource.description}
+                />
+              ))
+            ) : (
+              <p className="body-regular text-white-400">
+                Nenhum resultado encontrado
+              </p>
+            )}
+          </div>
+        </section>
+      )}
     </main>
   );
 };
