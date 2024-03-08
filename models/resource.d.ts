@@ -6,7 +6,7 @@ namespace Models {
     image: string;
     slug: string;
     category: string;
-    releaseyear: string;
+    releaseYear: string;
     description: string;
   }
 }

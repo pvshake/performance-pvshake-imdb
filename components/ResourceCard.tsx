@@ -8,20 +8,10 @@ interface Props {
   title: string;
   rating: number;
   image: string;
-  category: string;
-  releaseyear: string;
-  description: string;
+  releaseYear: string;
 }
 
-const ResourceCard = ({
-  id,
-  title,
-  rating,
-  image,
-  category,
-  releaseyear,
-  description,
-}: Props) => {
+const ResourceCard = ({ id, title, rating, image, releaseYear }: Props) => {
   return (
     <Card className="w-full max-w-fit border-0 !bg-transparent sm:max-w-[356px]">
       <Link href={`/resource/${id}`}>
@@ -40,7 +30,7 @@ const ResourceCard = ({
           </CardTitle>
         </CardHeader>
       </Link>
-      <CardContent className="flex-between mt-4 p-0">
+      <CardContent className="flex-between items-center mt-4 p-0">
         <div className="flex-center body-medium gap-1.5 mt-4 text-white">
           <Image
             src="/yellow-star.png"
@@ -50,6 +40,7 @@ const ResourceCard = ({
           />
           {rating}
         </div>
+        <div className="text-white mt-4 p-0">{releaseYear}</div>
       </CardContent>
     </Card>
   );
