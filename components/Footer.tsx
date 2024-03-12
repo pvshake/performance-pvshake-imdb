@@ -10,8 +10,8 @@ const Footer = () => {
       </p>
 
       <div className="flex gap-x-9">
-        <Link href="/terms-of-use">Termos e Condições</Link>
-        <Link href="/privacy-policy">Politicas de Privacidade</Link>
+        <p>Termos e Condições</p>
+        <p>Politicas de Privacidade</p>
       </div>
     </footer>
   );

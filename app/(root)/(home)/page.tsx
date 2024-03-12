@@ -47,6 +47,7 @@ const Page = async ({ searchParams }: Props) => {
                   key={resource._id}
                   id={resource._id}
                   title={resource.title}
+                  description={resource.description}
                   rating={resource.rating}
                   image={resource.image}
                   releaseYear={resource.releaseYear}
@@ -73,6 +74,7 @@ const Page = async ({ searchParams }: Props) => {
                 key={resource._id}
                 id={resource._id}
                 title={resource.title}
+                description={resource.description}
                 rating={resource.rating}
                 image={resource.image}
                 releaseYear={resource.releaseYear}
