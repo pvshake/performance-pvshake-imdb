@@ -22,10 +22,24 @@ const ResourceEdit = ({ id_resource }: Props) => {
     await remove();
   };
 
+  const mockResource = {
+    title: "Star Wars: A New Hope",
+    description: "The original Star Wars movie",
+    rating: 5,
+    releaseYear: 1977,
+  };
+
+  const handleSet = async () => {
+    await set({
+      ...mockResource,
+    } as Resource);
+  };
+
   const handleUpdate = async () => {
     await update({
       ...resource,
-      title: "Updated Title",
+      rating: 4,
+      title: "Star Wars: A New Hope - Special Edition",
     });
   };
 
@@ -39,6 +53,10 @@ const ResourceEdit = ({ id_resource }: Props) => {
           <p>Rating: {resource.rating}</p>
           <p>Release Year: {resource.releaseYear}</p>
           <button onClick={() => handleDelete(resource.id)}>Delete</button>
+          <br />
+          <button onClick={handleSet}>Set</button>
+          <br />
+          <button onClick={handleUpdate}>Update</button>
           <hr />
         </div>
       )}
